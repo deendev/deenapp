@@ -127,7 +127,7 @@
   }
 }
 
-@media (min-width: 480px)  {
+@media (mam-width: 480px)  {
   .social-login {
     flex-direction: column;
     gap: 10px;
