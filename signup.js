@@ -1,47 +1,59 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const signupForm = document.querySelector(".signupform");
-    const signupButton = signupForm.querySelector(".signupbtn");
+// signup.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
-    signupForm.addEventListener("submit", async (event) => {
-        event.preventDefault(); // Prevent default form submission
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCYeXEeWuTXDnIj1ch-yUaQuzq1BktcdiI",
+  authDomain: "deenauth-f2020.firebaseapp.com",
+  projectId: "deenauth-f2020",
+  storageBucket: "deenauth-f2020.appspot.com",
+  messagingSenderId: "843567714686",
+  appId: "1:843567714686:web:df1ecf1e2f1aaa0009a32f",
+};
 
-        const username = signupForm.username.value.trim();
-        const firstName = signupForm.firstName.value.trim();
-        const lastName = signupForm.lastName.value.trim();
-        const dob = signupForm.dob.value;
-        const email = signupForm.email.value.trim();
-        const password = signupForm.password.value;
-        const confirmPassword = signupForm.confirmPassword.value;
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-        // Basic validation
-        if (!username || !firstName || !lastName || !dob || !email || !password || !confirmPassword) {
-            alert("Please fill out all fields.");
-            return;
-        }
+// Signup form submission
+document.querySelector(".signupform").addEventListener("submit", (event) => {
+  event.preventDefault(); // Prevent the default form submission
 
-        if (password !== confirmPassword) {
-            alert("Passwords do not match. Please try again.");
-            return;
-        }
+  // Get form values
+  const username = document.getElementById("username").value;
+  const firstName = document.getElementById("firstName").value;
+  const lastName = document.getElementById("lastName").value;
+  const dob = document.getElementById("dob").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
 
-        // Simulate an asynchronous signup process (e.g., API call)
-        const isSignedUp = await fakeSignup(username, firstName, lastName, dob, email, password);
+  // Validate password confirmation
+  if (password !== confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+  }
 
-        if (isSignedUp) {
-            alert("Signup successful! Redirecting to the homepage...");
-            window.location.href = "./homepage.html"; // Redirect to homepage
-        } else {
-            alert("Signup failed. Please try again.");
-        }
+  // Create a new user with email and password
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      console.log("User signed up: ", user);
+
+      // Optionally, you can store additional user information in the database here
+
+      // Redirect to homepage after successful signup
+      window.location.href = "./homepage.html"; // Redirect to homepage
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error("Error during sign-up: ", errorCode, errorMessage);
+      alert("Error during sign-up: " + errorMessage);
     });
-
-    // Simulated signup function (replace this with actual API call)
-    async function fakeSignup(username, firstName, lastName, dob, email, password) {
-        // Simulate a delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        // Simulate a successful signup logic (replace this with actual logic)
-        // Here, you can add checks for existing usernames/emails if desired
-        return true; // Change this to false to simulate a failed signup
-    }
 });
