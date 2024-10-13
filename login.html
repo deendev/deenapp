@@ -4,25 +4,38 @@
     <meta charset="UTF-8" />
     <title>Login</title>
     <link rel="stylesheet" href="styles.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      type="text/javascript"
+      src="https://appleid.cdn.apple.com/appleid/2/appleid.auth.js"
+    ></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
   <body>
-    <div class="container">
+    <header>
       <div class="login-container">
         <h3>Login in with</h3>
         <div class="social-login">
-          <button class="google">
-            <img src="./sigin google icon.png" alt="" />
+          <button class="google" id="google-signin-btn">
+            <img src="./images/sigin google icon.png" alt="" />
             Sign in with Google
           </button>
-          <button class="apple">
-            <img src="./sigin apple icon.png" alt="" />
+          <button class="apple" id="apple-signin-btn">
+            <i class="fa-brands fa-apple"></i>
             Sign in with Apple
           </button>
         </div>
         <div class="horizontal-line">
-          <hr />
+          <p>or</p>
         </div>
-        <form class="loginform" action="/login" method="post">
+        <form class="loginform" action="./homepage.html" method="post">
           <div class="userName">
             <input
               class="placeholder"
@@ -47,11 +60,10 @@
         </form>
 
         <div class="signup-link">
-          Don't have an account? <a href="#">Sign up</a>
+          Don't have an account? <a href="./signup.html">Sign up</a>
         </div>
       </div>
-    </div>
-
-    <script src="app.js"></script>
+    </header>
+    <script type="module" src="app.js"></script>
   </body>
 </html>
