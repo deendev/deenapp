@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap");
 html,
 body {
   background: linear-gradient(yellow, orange, blue);
+  font-family: "Kumbh Sans", serif;
 }
 
 header {
@@ -34,15 +36,23 @@ header {
   border-radius: 10px;
   background: transparent;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 20px;
   padding: 10px;
   display: flex;
   gap: 8px;
   align-items: center;
+  color: #000;
 }
 .social-login img {
   width: 25px;
   height: 25px;
+}
+.social-login i {
+  font-size: 25px;
+}
+.social-login button:hover {
+  background-color: black;
+  color: white;
 }
 
 .login-container form {
@@ -94,6 +104,7 @@ header {
   color: white;
   cursor: pointer;
   min-width: 100%;
+  font-size: 24px;
 }
 .forgot-password {
   display: flex;
@@ -120,7 +131,9 @@ header {
     gap: 15px;
   }
   .loginform {
-    width: 40%;
+    width: 50%;
+    padding: 50px;
+    font-size: 20px;
   }
 }
 
