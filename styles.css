@@ -101,7 +101,7 @@ header {
   outline: none;
   margin-bottom: 10px;
   margin-top: 10px;
-  background-color: #21319a;
+  background-color: #000000;
   color: white;
   cursor: pointer;
   min-width: 100%;
@@ -115,29 +115,6 @@ header {
   margin-bottom: 0px;
 }
 
-@media (min-width: 475px) {
-  .login-container {
-    width: 100%;
-    height: 100%;
-  }
-  .social-login {
-    flex-direction: column;
-    gap: 15px;
-    width: 80%;
-  }
-
-  .social-login button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .loginform {
-    width: 80%;
-    padding: 50px;
-    font-size: 20px;
-  }
-}
-
 @media (min-width: 400px) {
   .login-container {
     width: 100%;
@@ -145,7 +122,7 @@ header {
     padding: 50px;
   }
   .login-container h3 {
-    font-size: 35px;
+    font-size: 50px;
   }
 
   .social-login {
@@ -153,13 +130,22 @@ header {
     gap: 15px;
     width: 80%;
   }
+  .social-login img {
+    width: 50px;
+    height: 50px;
+  }
+  .social-login i {
+    font-size: 50px;
+  }
 
   .social-login button {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 40px;
-    border: none;
+    border: 1px solid black;
+    padding: 30px;
+    border-radius: 50px;
   }
   .loginform {
     width: 80%;
@@ -172,7 +158,7 @@ header {
   .password,
   .userName,
   .placeholder {
-    font-size: 40px;
+    font-size: 50px;
   }
   .forgot-password {
     font-size: 30px;
@@ -188,6 +174,9 @@ header {
   }
   .horizontal-line::after {
     top: -40px;
+  }
+  .loginform .loginbtn {
+    padding: 30px;
   }
 }
 
