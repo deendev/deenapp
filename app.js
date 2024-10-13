@@ -1,61 +1,91 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const loginForm = document.querySelector(".loginform");
-    const loginButton = loginForm.querySelector(".loginbtn");
-    let attemptCount = 0;
-    const maxAttempts = 4;
-    let isLocked = false;
+// Google Sign-In
+function onGoogleSignIn(googleUser) {
+  const profile = googleUser.getBasicProfile();
+  console.log("ID: " + profile.getId());
+  console.log("Name: " + profile.getName());
+  console.log("Email: " + profile.getEmail());
 
-    loginForm.addEventListener("submit", async (event) => {
-        event.preventDefault(); // Prevent default form submission
+  // Handle sign-in here (e.g., send data to your server)
+  // For example: send profile info to your server
+}
 
-        if (isLocked) {
-            alert("You are temporarily locked out due to multiple failed login attempts. Please try again later.");
-            return;
-        }
+// Load the Google API
+function startGoogleApp() {
+  gapi.load("auth2", function () {
+    gapi.auth2
+      .init({
+        client_id: "YOUR_GOOGLE_CLIENT_ID",
+      })
+      .then(() => {
+        const googleButton = document.querySelector(".google");
+        googleButton.addEventListener("click", () => {
+          gapi.auth2.getAuthInstance().signIn().then(onGoogleSignIn);
+        });
+      });
+  });
+}
 
-        const username = loginForm.username.value.trim();
-        const password = loginForm.password.value;
+// Apple Sign-In
+document.getElementById("apple-signin-btn").addEventListener("click", () => {
+  AppleID.auth
+    .signIn()
+    .then((data) => {
+      console.log(data); // Contains the user's data
 
-        // Basic validation
-        if (!username || !password) {
-            alert("Please fill in both username and password.");
-            return;
-        }
-
-        // Simulate an asynchronous login process (e.g., API call)
-        const isAuthenticated = await fakeLogin(username, password);
-
-        if (isAuthenticated) {
-            alert("Login successful!");
-            window.location.href = "./homepage.html"; // Redirect to homepage
-        } else {
-            attemptCount++;
-            alert(`Login failed. Attempt ${attemptCount} of ${maxAttempts}.`);
-
-            // Check if attempts exceed maximum allowed
-            if (attemptCount >= maxAttempts) {
-                isLocked = true;
-                alert("You have exceeded the maximum number of login attempts. Please wait 30 seconds before trying again.");
-                loginButton.disabled = true;
-
-                // Lock out for 30 seconds
-                setTimeout(() => {
-                    isLocked = false;
-                    loginButton.disabled = false;
-                    attemptCount = 0; // Reset attempts after lockout period
-                    alert("You can try logging in again.");
-                }, 30000); // 30 seconds lockout
-            }
-        }
+      // Handle sign-in here (e.g., send data to your server)
+    })
+    .catch((error) => {
+      console.error("Apple Sign-In error:", error);
     });
-
-    // Simulated login function (replace this with actual API call)
-    async function fakeLogin(username, password) {
-        // Simulate a delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        // Simulate authentication logic (replace this with actual logic)
-        return username === "user" && password === "pass"; // Example credentials
-    }
 });
 
+// Initialize Apple Sign-In
+document.addEventListener("DOMContentLoaded", () => {
+  AppleID.auth.init({
+    clientId: "YOUR_APPLE_CLIENT_ID",
+    scope: "name email",
+    redirectURI: "YOUR_REDIRECT_URI",
+    state: "state",
+    usePopup: true, // Use a popup for authentication
+  });
+});
+
+// Traditional login handling
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.querySelector(".loginform");
+
+  loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    const username = loginForm.username.value.trim();
+    const password = loginForm.password.value;
+
+    // Basic validation
+    if (!username || !password) {
+      alert("Please fill in both username and password.");
+      return;
+    }
+
+    // Simulate a login process (you should replace this with your actual API call)
+    const isAuthenticated = await fakeLogin(username, password);
+
+    if (isAuthenticated) {
+      alert("Login successful!");
+      window.location.href = "./homepage.html"; // Redirect to homepage
+    } else {
+      alert("Login failed. Please check your username and password.");
+    }
+  });
+
+  // Simulated login function (replace this with actual API call)
+  async function fakeLogin(username, password) {
+    // Simulate a delay
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Simulate authentication logic (replace this with actual logic)
+    return username === "user" && password === "pass"; // Example credentials
+  }
+});
+
+// Load Google API when the page is ready
+window.onload = startGoogleApp;
