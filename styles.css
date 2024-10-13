@@ -69,6 +69,12 @@ header {
   align-items: center;
 }
 
+.horizontal-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .loginform .placeholder {
   width: 100%;
   padding: 10px;
