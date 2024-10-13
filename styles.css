@@ -69,23 +69,6 @@ header {
   align-items: center;
 }
 
-.horizontal-line {
-  border: none;
-  overflow: visible;
-  text-align: center;
-  height: 5px;
-  width: 100px;
-  margin: 20px;
-}
-
-.horizontal-line::after {
-  background: white;
-  content: "or";
-  padding: 0 4px;
-  position: relative;
-  top: -20px;
-}
-
 .loginform .placeholder {
   width: 100%;
   padding: 10px;
@@ -164,16 +147,15 @@ header {
     font-size: 30px;
     margin-bottom: 20px;
   }
-  .signup-link {
-    font-size: 25px;
+  .signup-link,
+  a {
+    font-size: 30px;
     margin-bottom: 0px;
+    text-decoration: none;
   }
   .horizontal-line {
     font-size: 30px;
     margin-bottom: 20;
-  }
-  .horizontal-line::after {
-    top: -40px;
   }
   .loginform .loginbtn {
     padding: 30px;
